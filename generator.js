@@ -1,30 +1,49 @@
+var options = {
+	"objectNouns": ["Conspiracy", "Secrets", "Ghosts", "Assassins", "Scrolls", "Codex", "Agents"],
+	"properNouns": ["Atlantis", "Cairo", "Moscow", "Versailles", "Venice", "Shanghai", "Beijing", "Stonehenge", "Poseidon"],
+	"characters" : ["Scarlet", "Rook", "Watchman", "Soldier"],
+	"possessions": ["Gambit", "Winter"],
+};
+
+var formats = [
+	function() {
+		return "The " + generate.objectNoun() + " of " + generate.properNoun();
+	},
+	function() {
+		return "The " + generate.properNoun() + " " + generate.objectNoun();
+	},
+	function() {
+		return generate.character() + "'s " + generate.possession();
+	},
+];
+
+var generate = {
+	"objectNoun": function() {
+		return randomlySelect(options.objectNouns);
+	},
+	"properNoun": function() {
+		return randomlySelect(options.properNouns);
+	},
+	"character" : function() {
+		return randomlySelect(options.characters);
+	},
+	"possession": function() {
+		return randomlySelect(options.possessions);
+	},
+};
+
+
 function randomlySelect(array) {
 	var i = Math.floor(Math.random() * array.length);
 	return array[i];
 }
 
-function formatXofY(objectNoun, properNoun) {
-	return "The " + objectNoun + " of " + properNoun;
-}
-
-function formatTheXY(objectNoun, properNoun) {
-	return "The " + properNoun + " " + objectNoun;
-}
-
-function formatPossessive(objectNoun, properNoun) {
-	return properNoun + "'s " + objectNoun;
-}
-
 function generateActionThriller() {
-	var objectNouns = ["Conspiracy", "Secrets", "Ghosts", "Assassins", "Scrolls", "Codex", "Agents"];
-	var properNouns = ["Atlantis", "Cairo", "Moscow", "Versailles", "Venice", "Shanghai", "Beijing", "Stonehenge"];
-	var formats = [formatXofY, formatTheXY];
 	var chosenFormat = randomlySelect(formats);
+	var title = chosenFormat();
 
-	return chosenFormat(randomlySelect(objectNouns), randomlySelect(properNouns));
+	return title;
 }
-
-
 
 
 
@@ -34,7 +53,7 @@ function generateActionThriller() {
  * -------------------------------
  */
 
-console.log('-------------------------------\nTHRILLER GENERATOR\n-------------------------------');
+console.log('-------------------------------\nACTION THRILLER GENERATOR\n-------------------------------');
 
 console.log(generateActionThriller());
 
